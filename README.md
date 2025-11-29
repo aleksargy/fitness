@@ -1,2 +1,0 @@
-# fitness
-fitness tracker
