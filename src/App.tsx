@@ -683,11 +683,10 @@ function App() {
         <div className="bg-slate-950/90 rounded-3xl p-5 sm:p-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
-              FitLog
+              Get Fit With Schlago
             </h1>
             <p className="text-sm text-slate-200/90 mt-1">
-              Structured workouts, per-set logging, PRs and volume stats —
-              in your browser.
+              Structured workouts, per-set logging, PRs and volume stats
             </p>
           </div>
           <div className="text-right text-xs text-slate-200/90 space-y-1">
