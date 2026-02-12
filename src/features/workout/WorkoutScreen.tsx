@@ -317,135 +317,159 @@ export function WorkoutScreen() {
   const running = workout.status === "running";
 
   return (
-    <div className="min-h-screen bg-[#070A12] text-white">
+    <div className="min-h-screen bg-[#0B0F14] text-white">
       <div className="pointer-events-none fixed inset-0 opacity-60">
-        <div className="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
-        <div className="absolute bottom-[-120px] right-[-120px] h-96 w-96 rounded-full bg-white/5 blur-3xl" />
+        <div className="absolute -top-28 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.35),rgba(0,0,0,0))] blur-3xl" />
+        <div className="absolute top-32 left-[-140px] h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(34,197,94,0.25),rgba(0,0,0,0))] blur-3xl" />
+        <div className="absolute bottom-[-160px] right-[-140px] h-[28rem] w-[28rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(5,150,105,0.22),rgba(0,0,0,0))] blur-3xl" />
       </div>
 
-      <div className="relative mx-auto max-w-3xl px-4 pb-16 pt-10">
-        <header className="mb-6 flex flex-col gap-3">
-          <div className="flex items-center justify-between gap-3">
-            <div>
-              <h1 className="text-2xl font-semibold tracking-tight">Fit with Schlago</h1>
-              <p className="text-white/55 text-sm">
-                Create Workout
-              </p>
+        <div className="relative mx-auto max-w-3xl px-4 pb-32 pt-10">
+          <header className="mb-6 flex flex-col gap-3">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <h1 className="text-2xl font-semibold tracking-tight">Fit with Schlago</h1>
+                <p className="text-white/55 text-sm">
+                  Create Workout
+                </p>
+              </div>
+
+              <div className="text-right">
+                <div className="text-3xl font-semibold tabular-nums">
+                  {formatTime(workout.elapsedMs)}
+                </div>
+                <div className="text-xs text-white/50">
+                  {workout.status === "idle" ? "Ready" : workout.status === "running" ? "Tracking" : "Paused"}
+                </div>
+              </div>
             </div>
 
-            <div className="text-right">
-              <div className="text-3xl font-semibold tabular-nums">
-                {formatTime(workout.elapsedMs)}
+            <Card className="p-4">
+              <div className="space-y-3">
+                {/* Title: always full width */}
+                <input
+                  className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-base text-white outline-none focus:border-white/25"
+                  value={workout.title}
+                  onChange={(e) => setWorkout((w) => ({ ...w, title: e.target.value }))}
+                />
+
+                {/* Buttons: grid on mobile, row on larger */}
+                <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+                  <button
+                    className={`rounded-2xl px-4 py-3 text-base font-semibold border transition active:scale-[0.99] ${running
+                      ? "bg-white/15 border-white/25 text-white"
+                      : "border-white/10 text-white bg-[linear-gradient(135deg,rgba(16,185,129,0.7),rgba(34,197,94,0.5),rgba(5,150,105,0.4))] hover:brightness-110"
+                      }`}
+
+                    onClick={() =>
+                      setWorkout((w) => ({
+                        ...w,
+                        status: w.status === "running" ? "paused" : "running",
+                      }))
+                    }
+                  >
+                    {running ? "Pause" : workout.status === "paused" ? "Resume" : "Start"}
+                  </button>
+
+                  <button
+                    className="rounded-2xl px-4 py-3 text-base font-medium border border-white/10 bg-white/5 text-white/85 hover:bg-white/10 active:scale-[0.99]"
+                    onClick={() => setWorkout((w) => ({ ...w, elapsedMs: 0, status: "idle" }))}
+                  >
+                    Reset
+                  </button>
+
+                  <button
+                    className="col-span-2 rounded-2xl px-4 py-3 text-base font-medium border border-white/10 bg-white/5 text-white/85 hover:bg-white/10 active:scale-[0.99]"
+                    onClick={() =>
+                      setWorkout({
+                        id: uid(),
+                        title: "Workout",
+                        status: "idle",
+                        elapsedMs: 0,
+                        exercises: [],
+                      })
+                    }
+                  >
+                    New workout
+                  </button>
+                </div>
               </div>
-              <div className="text-xs text-white/50">
-                {workout.status === "idle" ? "Ready" : workout.status === "running" ? "Tracking" : "Paused"}
+
+            </Card>
+          </header>
+
+          <main className="space-y-3">
+            {workout.exercises.length === 0 ? (
+              <Card className="p-6">
+                <p className="text-white/70">
+                  Add a movement to start logging. Defaults to{" "}
+                  <span className="text-white">bodyweight</span>, with a clean way to log{" "}
+                  <span className="text-white">weighted</span> load.
+                </p>
+              </Card>
+            ) : (
+              <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+                <SortableContext items={workout.exercises.map((x) => x.id)} strategy={verticalListSortingStrategy}>
+                  <div className="space-y-3">
+                    {workout.exercises.map((ex) => (
+                      <SortableExercise
+                        key={ex.id}
+                        entry={ex}
+                        onUpdate={(patch) =>
+                          setWorkout((w) => ({
+                            ...w,
+                            exercises: w.exercises.map((x) => (x.id === ex.id ? { ...x, ...patch } : x)),
+                          }))
+                        }
+                        onRemove={() =>
+                          setWorkout((w) => ({ ...w, exercises: w.exercises.filter((x) => x.id !== ex.id) }))
+                        }
+                      />
+                    ))}
+                  </div>
+                </SortableContext>
+              </DndContext>
+            )}
+          </main>
+
+          <footer className="mt-8 text-center text-xs text-white/35">SCHLI SCHLA</footer>
+        </div>
+        <ExercisePicker
+          open={pickerOpen}
+          movements={MOVEMENTS}
+          onClose={() => setPickerOpen(false)}
+          onPick={(m) => addExercise(m)}
+        />
+        <div className="fixed inset-x-0 bottom-0 z-40">
+          <div className="mx-auto max-w-3xl px-4 pb-[max(12px,env(safe-area-inset-bottom))]">
+            <div className="rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl p-2 shadow-[0_10px_30px_rgba(0,0,0,0.45)]">
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  className={`rounded-2xl px-4 py-3 text-base font-semibold border transition active:scale-[0.99] ${running
+                    ? "bg-white/15 border-white/25 text-white"
+                    : "border-white/10 text-white bg-[linear-gradient(135deg,rgba(255,255,255,0.9),rgba(200,200,200,0.8))] text-black shadow-[0_0_25px_rgba(245,222,179,0.25)] hover:brightness-110"
+                    }`}
+                  onClick={() =>
+                    setWorkout((w) => ({
+                      ...w,
+                      status: w.status === "running" ? "paused" : "running",
+                    }))
+                  }
+                >
+                  {running ? "Pause" : workout.status === "paused" ? "Resume" : "Start"}
+                </button>
+
+                <button
+                  className="rounded-2xl px-4 py-3 text-base font-semibold border border-white/10 bg-white/5 text-white/85 hover:bg-white/10 active:scale-[0.99]"
+                  onClick={() => setPickerOpen(true)}
+                >
+                  + Exercise
+                </button>
               </div>
             </div>
           </div>
+        </div>
 
-          <Card className="p-4">
-            <div className="mt-3 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">
-              <input
-                className="flex-1 min-w-[200px] rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-white outline-none focus:border-white/25"
-                value={workout.title}
-                onChange={(e) => setWorkout((w) => ({ ...w, title: e.target.value }))}
-              />
-
-              <button
-                className={`rounded-xl px-4 py-2 border transition ${running
-                  ? "bg-white/15 border-white/25 text-white"
-                  : "bg-white/5 border-white/10 text-white/80 hover:bg-white/10 hover:text-white"
-                  }`}
-                onClick={() =>
-                  setWorkout((w) => ({
-                    ...w,
-                    status: w.status === "running" ? "paused" : "running",
-                  }))
-                }
-              >
-                {running ? "Pause" : workout.status === "paused" ? "Resume" : "Start"}
-              </button>
-
-              <button
-                className="rounded-xl px-4 py-2 border border-white/10 bg-white/5 text-white/80 hover:bg-white/10 hover:text-white"
-                onClick={() => setWorkout((w) => ({ ...w, elapsedMs: 0, status: "idle" }))}
-              >
-                Reset
-              </button>
-
-              <button
-                className="rounded-xl px-4 py-2 border border-white/10 bg-white/5 text-white/80 hover:bg-white/10 hover:text-white"
-                onClick={() =>
-                  setWorkout({
-                    id: uid(),
-                    title: "Workout",
-                    status: "idle",
-                    elapsedMs: 0,
-                    exercises: [],
-                  })
-                }
-              >
-                New
-              </button>
-            </div>
-
-            <div className="mt-3 flex flex-wrap items-center gap-2">
-              <div className="text-sm text-white/60">Add exercise</div>
-              <div className="mt-3 flex items-center gap-2">
-                <button
-                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base text-white/85 hover:bg-white/10 active:scale-[0.99] transition"
-                  onClick={() => setPickerOpen(true)}
-                >
-                  + Add exercise
-                </button>
-              </div>
-              <div className="ml-auto text-xs text-white/45">Tip: drag handle to reorder</div>
-            </div>
-          </Card>
-        </header>
-
-        <main className="space-y-3">
-          {workout.exercises.length === 0 ? (
-            <Card className="p-6">
-              <p className="text-white/70">
-                Add a movement to start logging. Defaults to{" "}
-                <span className="text-white">bodyweight</span>, with a clean way to log{" "}
-                <span className="text-white">weighted</span> load.
-              </p>
-            </Card>
-          ) : (
-            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-              <SortableContext items={workout.exercises.map((x) => x.id)} strategy={verticalListSortingStrategy}>
-                <div className="space-y-3">
-                  {workout.exercises.map((ex) => (
-                    <SortableExercise
-                      key={ex.id}
-                      entry={ex}
-                      onUpdate={(patch) =>
-                        setWorkout((w) => ({
-                          ...w,
-                          exercises: w.exercises.map((x) => (x.id === ex.id ? { ...x, ...patch } : x)),
-                        }))
-                      }
-                      onRemove={() =>
-                        setWorkout((w) => ({ ...w, exercises: w.exercises.filter((x) => x.id !== ex.id) }))
-                      }
-                    />
-                  ))}
-                </div>
-              </SortableContext>
-            </DndContext>
-          )}
-        </main>
-
-        <footer className="mt-8 text-center text-xs text-white/35">If you read this you are a schli schla</footer>
       </div>
-      <ExercisePicker
-        open={pickerOpen}
-        movements={MOVEMENTS}
-        onClose={() => setPickerOpen(false)}
-        onPick={(m) => addExercise(m)}
-      />
-    </div>
-  );
+      );
 }
