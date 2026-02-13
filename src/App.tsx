@@ -1,5 +1,5 @@
-import { WorkoutScreen } from "./features/workout/WorkoutScreen";
+import { Home } from "./app/Home";
 
 export default function App() {
-  return <WorkoutScreen />;
+  return <Home />;
 }
