@@ -26,7 +26,7 @@ export function ExerciseCard({
 
                 <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between gap-3">
-                        <div className="min-w-0">
+                        <div className="min-w-0 flex-1">
                             <div className="flex flex-wrap items-center gap-2">
                                 <h3 className="truncate text-lg font-semibold text-white">
                                     {entry.name}
@@ -41,12 +41,6 @@ export function ExerciseCard({
                             )}
 
                             <div className="mt-2 grid grid-cols-1 gap-2">
-                                <input
-                                    className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-base text-white placeholder:text-white/30 outline-none focus:border-white/25"
-                                    placeholder="Variation (e.g., rings, wide grip)"
-                                    value={entry.variation}
-                                    onChange={(e) => onUpdate({ variation: e.target.value })}
-                                />
                                 <input
                                     className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-base text-white placeholder:text-white/30 outline-none focus:border-white/25"
                                     placeholder="Notes (optional)"

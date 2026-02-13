@@ -9,7 +9,6 @@ export type ExerciseEntry = {
   id: string;
   movementId: string;
   name: string;
-  variation: string;
   notes: string;
   sets: SetRow[];
 };
@@ -31,7 +30,6 @@ export type Template = {
     id: string;
     movementId: string;
     name: string;
-    variation: string;
     notes: string;
   }>;
 };
@@ -44,4 +42,12 @@ export type Session = {
   endedAt: string; // ISO
   elapsedMs: number;
   exercises: ExerciseEntry[];
+};
+
+export type CustomMovement = {
+  id: string; // "custom_<uid>"
+  name: string;
+  category: "Pull" | "Push" | "Legs" | "Core";
+  image?: string; // optional (URL or /public path)
+  createdAt: string; // ISO
 };

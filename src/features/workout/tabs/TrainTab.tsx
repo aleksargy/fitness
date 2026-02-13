@@ -99,7 +99,6 @@ export function TrainTab({
             id: crypto.randomUUID?.() ?? uid(),
             movementId: m.id,
             name: m.name,
-            variation: "",
             notes: "",
             sets: [
             ],
