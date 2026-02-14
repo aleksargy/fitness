@@ -136,7 +136,6 @@ export function ExercisePicker({
                                 id: r.id,
                                 name: String(r.name ?? "").trim(),
                                 category: norm,
-                                image: r.image || "/movements/custom.jpg",
                             } as Movement;
                         })
                         .filter((m) => m.name.length > 0)
@@ -380,15 +379,12 @@ export function ExercisePicker({
                                                             const created = await addCustomMovement({
                                                                 name: newName,
                                                                 category: newCat,
-                                                                image: "/movements/custom.jpg",
                                                             });
 
                                                             const movement: Movement = {
                                                                 id: created.id,
                                                                 name: created.name,
-                                                                category: created.category,
-                                                                image:
-                                                                    created.image || "/movements/custom.jpg",
+                                                                category: created.category
                                                             };
 
                                                             setCustom((prev) => [movement, ...prev]);
@@ -420,12 +416,6 @@ export function ExercisePicker({
                                                 }}
                                             >
                                                 <div className="flex items-center gap-3">
-                                                    <img
-                                                        src={m.image}
-                                                        alt=""
-                                                        className="h-12 w-12 rounded-xl object-cover border border-white/10 bg-black/30"
-                                                        loading="lazy"
-                                                    />
                                                     <div className="min-w-0 flex-1">
                                                         <div className="truncate text-base font-medium">
                                                             {m.name}

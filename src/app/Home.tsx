@@ -5,8 +5,9 @@ import { uid } from "./utils";
 import { TrainTab } from "../features/workout/tabs/TrainTab";
 import { TemplatesTab } from "../features/workout/tabs/TemplatesTab";
 import { CalendarTab } from "../features/workout/tabs/CalendarTab";
+import { StatsTab } from "../features/workout/tabs/StatsTab";
 
-type Tab = "train" | "templates" | "calendar";
+type Tab = "train" | "templates" | "calendar" | "stats";
 
 function newEmptyWorkout(): WorkoutDraft {
   return {
@@ -77,13 +78,16 @@ export function Home() {
         )}
 
         {tab === "calendar" && <CalendarTab onStartNew={() => setTab("train")} />}
+    
+        {tab === "stats" && <StatsTab/>}
+
       </div>
 
       {/* bottom nav */}
       <div className="fixed inset-x-0 bottom-0 z-40">
         <div className="mx-auto max-w-3xl px-4 pb-[max(12px,env(safe-area-inset-bottom))]">
           <div className="rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl p-2 shadow-[0_10px_30px_rgba(0,0,0,0.45)]">
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-4 gap-2">
               <NavBtn active={tab === "train"} onClick={() => setTab("train")}>
                 Train
               </NavBtn>
@@ -92,6 +96,9 @@ export function Home() {
               </NavBtn>
               <NavBtn active={tab === "calendar"} onClick={() => setTab("calendar")}>
                 Calendar
+              </NavBtn>
+              <NavBtn active={tab === "stats"} onClick={() => setTab("stats")}>
+                Stats
               </NavBtn>
             </div>
           </div>

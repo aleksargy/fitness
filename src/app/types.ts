@@ -48,6 +48,5 @@ export type CustomMovement = {
   id: string; // "custom_<uid>"
   name: string;
   category: "Pull" | "Push" | "Legs" | "Core";
-  image?: string; // optional (URL or /public path)
   createdAt: string; // ISO
 };
