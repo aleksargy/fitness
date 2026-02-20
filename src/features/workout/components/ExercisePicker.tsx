@@ -313,7 +313,7 @@ export function ExercisePicker({
                                     />
                                 </div>
 
-                                <div className="mt-3 flex gap-2 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch]">
+                                <div className="mt-3 flex gap-4 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch]">
                                     <Chip active={cat === "All"} onClick={() => setCat("All")}>
                                         All
                                     </Chip>
@@ -341,10 +341,10 @@ export function ExercisePicker({
                                             + Create custom exercise
                                         </button>
                                     ) : (
-                                        <div className="rounded-2xl border border-white/10 bg-black/20 p-3">
+                                        <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
                                             <div className="text-sm font-semibold">New exercise</div>
 
-                                            <div className="mt-2 grid gap-2">
+                                            <div className="mt-3 grid gap-4">
                                                 <input
                                                     value={newName}
                                                     onChange={(e) => setNewName(e.target.value)}
@@ -352,7 +352,7 @@ export function ExercisePicker({
                                                     className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base text-white outline-none focus:border-white/25 placeholder:text-white/35"
                                                 />
 
-                                                <div className="flex gap-2 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch]">
+                                                <div className="flex gap-4 overflow-x-auto pb-1 [-webkit-overflow-scrolling:touch]">
                                                     {CATS.map((c) => (
                                                         <Chip
                                                             key={c}
@@ -364,7 +364,7 @@ export function ExercisePicker({
                                                     ))}
                                                 </div>
 
-                                                <div className="grid grid-cols-2 gap-2">
+                                                <div className="grid grid-cols-2 gap-4">
                                                     <button
                                                         className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/85 hover:bg-white/10 active:scale-[0.99] transition"
                                                         onClick={() => setCreating(false)}
@@ -373,7 +373,7 @@ export function ExercisePicker({
                                                     </button>
 
                                                     <button
-                                                        className="rounded-2xl px-4 py-3 text-sm font-semibold bg-[#F3F4F6] text-black hover:bg-white active:scale-[0.99] transition disabled:opacity-60"
+                                                        className="rounded-2xl px-4 py-3 font-semibold bg-gradient-to-r from-emerald-300 to-sky-300 text-black shadow-lg shadow-emerald-300/20 active:scale-[0.97] transition"
                                                         disabled={!newName.trim()}
                                                         onClick={async () => {
                                                             const created = await addCustomMovement({
@@ -405,7 +405,7 @@ export function ExercisePicker({
                                         No matches.
                                     </div>
                                 ) : (
-                                    <div className="grid grid-cols-1 gap-2">
+                                    <div className="grid grid-cols-1 gap-4">
                                         {results.map((m) => (
                                             <button
                                                 key={m.id}
@@ -415,7 +415,7 @@ export function ExercisePicker({
                                                     close();
                                                 }}
                                             >
-                                                <div className="flex items-center gap-3">
+                                                <div className="flex items-center gap-4">
                                                     <div className="min-w-0 flex-1">
                                                         <div className="truncate text-base font-medium">
                                                             {m.name}

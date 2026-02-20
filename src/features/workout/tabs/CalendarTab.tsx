@@ -32,7 +32,7 @@ function clamp(v: number, min: number, max: number) {
     return Math.max(min, Math.min(max, v));
 }
 
-export function CalendarTab({ onStartNew }: { onStartNew: () => void }) {
+export function CalendarTab() {
     const [sessions, setSessions] = useState<Session[]>([]);
     const [month, setMonth] = useState(() => startOfMonth(new Date()));
     const [selectedDate, setSelectedDate] = useState(() => yyyyMmDdFromDate(new Date()));
@@ -96,18 +96,10 @@ export function CalendarTab({ onStartNew }: { onStartNew: () => void }) {
 
     return (
         <>
-            <header className="mb-4 flex items-end justify-between gap-3">
+            <header className="mb-4 flex items-end justify-between gap-4">
                 <div>
-                    <h1 className="text-xl font-semibold tracking-tight">Calendar</h1>
-                    <p className="text-white/55 text-sm">Tap a day to review your training</p>
+                    <h1 className="text-2xl font-semibold tracking-tight">Calendar</h1>
                 </div>
-
-                <button
-                    className="rounded-2xl px-4 py-3 text-sm font-semibold bg-[#F3F4F6] text-black hover:bg-white active:scale-[0.98] transition"
-                    onClick={onStartNew}
-                >
-                    Train
-                </button>
             </header>
 
             {/* Month header */}
@@ -144,7 +136,7 @@ export function CalendarTab({ onStartNew }: { onStartNew: () => void }) {
                 </div>
 
                 {/* Calendar grid */}
-                <div className="mt-1 grid grid-cols-7 gap-2">
+                <div className="mt-1 grid grid-cols-7 gap-4">
                     {grid.cells.map(({ date, inMonth, key }) => {
                         const isToday = key === todayKey;
                         const isSelected = key === selectedDate;
@@ -227,7 +219,7 @@ export function CalendarTab({ onStartNew }: { onStartNew: () => void }) {
                             onClick={() => setOpenSession(s)}
                         >
                             <Card className="p-4 hover:bg-white/[0.06] transition">
-                                <div className="flex items-start justify-between gap-3">
+                                <div className="flex items-start justify-between gap-4">
                                     <div className="min-w-0">
                                         <div className="text-base font-semibold truncate">{s.title}</div>
                                         <div className="text-xs text-white/55">
@@ -238,7 +230,7 @@ export function CalendarTab({ onStartNew }: { onStartNew: () => void }) {
                                 </div>
 
                                 {/* tiny preview chips */}
-                                <div className="mt-3 flex flex-wrap gap-2">
+                                <div className="mt-3 flex flex-wrap gap-4">
                                     {s.exercises.slice(0, 4).map((ex) => (
                                         <span
                                             key={ex.id}
@@ -320,7 +312,7 @@ function SessionSheet({
                             <div className="px-4 pt-3 pb-3">
                                 <div className="mx-auto mb-3 h-1.5 w-12 rounded-full bg-white/15" />
 
-                                <div className="flex items-start justify-between gap-3">
+                                <div className="flex items-start justify-between gap-4">
                                     <div className="min-w-0">
                                         <div className="text-base font-semibold truncate">{openSession.title}</div>
                                         <div className="text-xs text-white/55">
@@ -345,8 +337,8 @@ function SessionSheet({
                             <div className="h-[calc(82vh-92px)] overflow-y-auto px-2 pb-3">
                                 <div className="space-y-2">
                                     {openSession.exercises.map((ex) => (
-                                        <div key={ex.id} className="rounded-2xl border border-white/10 bg-white/5 p-3">
-                                            <div className="flex items-center justify-between gap-2">
+                                        <div key={ex.id} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                                            <div className="flex items-center justify-between gap-4">
                                                 <div className="font-semibold">{ex.name}</div>
                                             </div>
 
@@ -358,7 +350,7 @@ function SessionSheet({
                                             )}
 
                                             {/* Sets */}
-                                            <div className="mt-2 space-y-1">
+                                            <div className="mt-3 space-y-1">
                                                 {ex.sets.map((set, i) => (
                                                     <div
                                                         key={set.id}

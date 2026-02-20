@@ -207,12 +207,12 @@ export function StatsTab() {
     return (
         <>
             <header className="mb-4">
-                <h1 className="text-xl font-semibold tracking-tight">Stats</h1>
+                <h1 className="text-2xl font-semibold tracking-tight">Stats</h1>
                 <p className="text-white/55 text-sm">Progress, consistency, highlights</p>
             </header>
 
             {/* Hero row */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-4">
                 <Card className="p-4">
                     <div className="text-xs text-white/55">This week</div>
                     <div className="mt-1 text-2xl font-semibold tabular-nums">{thisWeek.workouts}</div>
@@ -248,7 +248,7 @@ export function StatsTab() {
             </div>
 
             {/* 30d summary */}
-            <div className="mt-3 grid grid-cols-2 gap-3">
+            <div className="mt-3 grid grid-cols-2 gap-4">
                 <Card className="p-4">
                     <div className="text-xs text-white/55">Last 30 days</div>
                     <div className="mt-1 text-lg font-semibold tabular-nums">
@@ -317,9 +317,9 @@ export function StatsTab() {
                         bestSets.map((b) => (
                             <div
                                 key={b.movementId}
-                                className="rounded-2xl border border-white/10 bg-white/5 p-3"
+                                className="rounded-2xl border border-white/10 bg-white/5 p-4"
                             >
-                                <div className="flex items-start justify-between gap-3">
+                                <div className="flex items-start justify-between gap-4">
                                     <div className="min-w-0">
                                         <div className="truncate text-sm font-semibold">{b.name}</div>
                                         <div className="text-xs text-white/55">last: {b.lastDate}</div>
@@ -351,7 +351,7 @@ export function StatsTab() {
                                 key={x.id}
                                 className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-3 py-2"
                             >
-                                <div className="min-w-0 flex items-center gap-2">
+                                <div className="min-w-0 flex items-center gap-4">
                                     <span className="text-xs text-white/45 w-5 tabular-nums">{idx + 1}</span>
                                     <div className="truncate text-sm font-medium">{x.name}</div>
                                 </div>

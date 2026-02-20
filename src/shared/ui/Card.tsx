@@ -1,20 +1,25 @@
 import React from "react";
 
 export function Card({
+  className,
   children,
-  className = "",
 }: {
-  children: React.ReactNode;
   className?: string;
+  children: React.ReactNode;
 }) {
   return (
     <div
-      className={
-        "rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.35)] " +
-        className
-      }
+      className={`
+        rounded-3xl
+        border border-white/10
+        bg-gradient-to-b from-white/[0.06] to-white/[0.03]
+        backdrop-blur-xl
+        shadow-[0_8px_40px_rgba(0,0,0,0.35)]
+        ${className ?? ""}
+      `}
     >
       {children}
     </div>
   );
 }
+

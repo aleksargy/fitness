@@ -21,13 +21,13 @@ export function ExerciseCard({
 
     return (
         <Card className="p-4">
-            <div className="flex items-start gap-3">
+            <div className="flex items-start gap-4">
                 {dragHandle}
 
                 <div className="min-w-0 flex-1">
-                    <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-start justify-between gap-4">
                         <div className="min-w-0 flex-1">
-                            <div className="flex flex-wrap items-center gap-2">
+                            <div className="flex flex-wrap items-center gap-4">
                                 <h3 className="truncate text-lg font-semibold text-white">
                                     {entry.name}
                                 </h3>
@@ -40,7 +40,7 @@ export function ExerciseCard({
                                 </div>
                             )}
 
-                            <div className="mt-2 grid grid-cols-1 gap-2">
+                            <div className="mt-3 grid grid-cols-1 gap-4">
                                 <input
                                     className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-base text-white placeholder:text-white/30 outline-none focus:border-white/25"
                                     placeholder="Notes (optional)"
@@ -65,15 +65,15 @@ export function ExerciseCard({
                                     </button>
                                 </div>
 
-                                <div className="mt-2 space-y-2">
+                                <div className="mt-3 space-y-2">
                                     {entry.sets.map((s, idx) => (
                                         <div
                                             key={s.id}
-                                            className="flex flex-wrap items-center gap-2 rounded-2xl border border-white/10 bg-black/20 px-3 py-2"
+                                            className="flex flex-wrap items-center gap-4 rounded-2xl border border-white/10 bg-black/20 px-3 py-2"
                                         >
                                             <span className="w-10 text-sm text-white/60">#{idx + 1}</span>
 
-                                            <div className="flex items-center gap-2">
+                                            <div className="flex items-center gap-4">
                                                 <span className="text-sm text-white/60">Reps</span>
                                                 <input
                                                     inputMode="numeric"
@@ -93,7 +93,7 @@ export function ExerciseCard({
                                                 />
                                             </div>
 
-                                            <div className="flex items-center gap-2">
+                                            <div className="flex items-center gap-4">
                                                 <span className="text-sm text-white/60">+kg</span>
                                                 <input
                                                     inputMode="decimal"

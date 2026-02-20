@@ -149,7 +149,7 @@ export function ExerciseDetailSheet({
               <div className="px-4 pt-3 pb-3">
                 <div className="mx-auto mb-3 h-1.5 w-12 rounded-full bg-white/15" />
 
-                <div className="flex items-start justify-between gap-3">
+                <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <div className="truncate text-base font-semibold">
                       {title ?? "Exercise"}
@@ -160,7 +160,7 @@ export function ExerciseDetailSheet({
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-4">
                     <Pill active={view === "dual"} onClick={() => setView("dual")}>Dual</Pill>
                     <Pill active={view === "kg"} onClick={() => setView("kg")}>+kg</Pill>
                     <Pill active={view === "reps"} onClick={() => setView("reps")}>Reps</Pill>
@@ -200,29 +200,29 @@ export function ExerciseDetailSheet({
                 </div>
 
                 {/* metrics */}
-                <div className="mt-3 grid grid-cols-2 gap-2">
-                  <Card className="p-3">
+                <div className="mt-3 grid grid-cols-2 gap-4">
+                  <Card className="p-4">
                     <div className="text-xs text-white/55">Best +kg</div>
                     <div className="mt-1 text-lg font-semibold tabular-nums">
                       {summary.bestKg > 0 ? `+${summary.bestKg}kg` : "BW"}
                     </div>
                   </Card>
 
-                  <Card className="p-3">
+                  <Card className="p-4">
                     <div className="text-xs text-white/55">Best reps</div>
                     <div className="mt-1 text-lg font-semibold tabular-nums">
                       {summary.bestReps || "—"}
                     </div>
                   </Card>
 
-                  <Card className="p-3">
+                  <Card className="p-4">
                     <div className="text-xs text-white/55">Best score</div>
                     <div className="mt-1 text-lg font-semibold tabular-nums">
                       {summary.bestScore || "—"}
                     </div>
                   </Card>
 
-                  <Card className="p-3">
+                  <Card className="p-4">
                     <div className="text-xs text-white/55">Last score</div>
                     <div className="mt-1 text-lg font-semibold tabular-nums">
                       {summary.lastScore || "—"}
@@ -246,7 +246,7 @@ export function ExerciseDetailSheet({
                         key={h.sessionId}
                         className="rounded-2xl border border-white/10 bg-white/5 px-3 py-3"
                       >
-                        <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center justify-between gap-4">
                           <div className="text-sm font-semibold tabular-nums">{h.date}</div>
                           <div className="text-sm text-white/70 tabular-nums">
                             {h.bestKg > 0 ? `+${h.bestKg}kg` : "BW"} • {h.bestReps || "—"} reps • {h.score || 0}
@@ -348,7 +348,7 @@ function DualSparkline({
         </div>
       </div>
 
-      <svg viewBox={`0 0 ${w} ${h}`} className="mt-2 w-full" preserveAspectRatio="none">
+      <svg viewBox={`0 0 ${w} ${h}`} className="mt-3 w-full" preserveAspectRatio="none">
         <path d={`M ${pad} ${h - pad} L ${w - pad} ${h - pad}`} className="stroke-white/10" strokeWidth="1" fill="none" />
         <path d={`M ${pad} ${pad} L ${w - pad} ${pad}`} className="stroke-white/10" strokeWidth="1" fill="none" />
 
@@ -375,9 +375,9 @@ function DualSparkline({
         <circle cx={xs[xs.length - 1]} cy={ysReps[ysReps.length - 1]} r="3.5" className="fill-sky-200" />
       </svg>
 
-      <div className="mt-2 flex items-center justify-between text-[11px] text-white/45">
+      <div className="mt-3 flex items-center justify-between text-[11px] text-white/45">
         <span className="tabular-nums">{kg[0].xLabel}</span>
-        <span className="flex items-center gap-3">
+        <span className="flex items-center gap-4">
           <span className="flex items-center gap-1">
             <span className="inline-block h-2 w-2 rounded-full bg-emerald-200/80" />
             +kg
@@ -437,7 +437,7 @@ function SingleSparkline({
         <div className="text-xs text-white/70 tabular-nums">last: {valueFmt(last.value)}</div>
       </div>
 
-      <svg viewBox={`0 0 ${w} ${h}`} className="mt-2 w-full" preserveAspectRatio="none">
+      <svg viewBox={`0 0 ${w} ${h}`} className="mt-3 w-full" preserveAspectRatio="none">
         <path d={`M ${pad} ${h - pad} L ${w - pad} ${h - pad}`} className="stroke-white/10" strokeWidth="1" fill="none" />
         <path d={`M ${pad} ${pad} L ${w - pad} ${pad}`} className="stroke-white/10" strokeWidth="1" fill="none" />
         <path
@@ -451,7 +451,7 @@ function SingleSparkline({
         <circle cx={xs[xs.length - 1]} cy={ys[ys.length - 1]} r="3.5" className="fill-emerald-200" />
       </svg>
 
-      <div className="mt-2 flex justify-between text-[11px] text-white/45 tabular-nums">
+      <div className="mt-3 flex justify-between text-[11px] text-white/45 tabular-nums">
         <span>{points[0].xLabel}</span>
         <span>
           {minV.toFixed(0)} → {maxV.toFixed(0)}

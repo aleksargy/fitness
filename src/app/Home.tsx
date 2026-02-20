@@ -49,9 +49,11 @@ export function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0F1115] text-white">
+    <div className="min-h-screen bg-gradient-to-b from-[#0f1117] via-[#0b0e13] to-[#05070b] text-white">
       {/* background glow: subtle forest */}
       <div className="pointer-events-none fixed inset-0 opacity-60">
+        <div className="absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-emerald-400/10 blur-3xl" />
+        <div className="absolute bottom-[-150px] right-[-100px] h-96 w-96 rounded-full bg-sky-400/10 blur-3xl" />
         <div className="absolute -top-40 left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.12),rgba(0,0,0,0))] blur-3xl" />
         <div className="absolute bottom-[-200px] right-[-150px] h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.08),rgba(0,0,0,0))] blur-3xl" />
       </div>
@@ -77,9 +79,9 @@ export function Home() {
           />
         )}
 
-        {tab === "calendar" && <CalendarTab onStartNew={() => setTab("train")} />}
-    
-        {tab === "stats" && <StatsTab/>}
+        {tab === "calendar" && <CalendarTab />}
+
+        {tab === "stats" && <StatsTab />}
 
       </div>
 
@@ -87,7 +89,7 @@ export function Home() {
       <div className="fixed inset-x-0 bottom-0 z-40">
         <div className="mx-auto max-w-3xl px-4 pb-[max(12px,env(safe-area-inset-bottom))]">
           <div className="rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl p-2 shadow-[0_10px_30px_rgba(0,0,0,0.45)]">
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-4 gap-4">
               <NavBtn active={tab === "train"} onClick={() => setTab("train")}>
                 Train
               </NavBtn>
@@ -121,7 +123,7 @@ function NavBtn({
     <button
       onClick={onClick}
       className={cn(
-        "rounded-2xl px-3 py-3 text-sm font-medium transition active:scale-[0.99] border",
+        "rounded-2xl px-3 py-3 text-sm font-medium transition hover:bg-white/[0.08] active:scale-[0.97] transition-all duration-150 border",
         active
           ? "bg-white/10 border-white/20 text-white"
           : "bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white"

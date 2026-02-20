@@ -148,12 +148,9 @@ export function TrainTab({
     return (
         <>
             <header className="mb-4">
-                <div className="flex items-end justify-between gap-3">
+                <div className="flex items-end justify-between gap-4">
                     <div>
-                        <h1 className="text-xl font-semibold tracking-tight">Train</h1>
-                        <p className="text-white/55 text-sm">
-                            Log sets • track progressive overload
-                        </p>
+                        <h1 className="text-2xl font-semibold tracking-tight">Train</h1>
                     </div>
 
                     <div className="text-right">
@@ -179,12 +176,12 @@ export function TrainTab({
                         onChange={(e) => setWorkout((w) => ({ ...w, title: e.target.value }))}
                     />
 
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-2 gap-4">
                         {/* Primary: matte light */}
                         <button
                             className={`rounded-2xl px-4 py-3 text-base font-semibold transition active:scale-[0.98] ${running
-                                ? "bg-white/10 text-white border border-white/20"
-                                : "bg-[#F3F4F6] text-black hover:bg-white"
+                                ? "bg-[#F3F4F6] text-black hover:bg-white"
+                                : "bg-gradient-to-r from-emerald-300 to-sky-300"
                                 }`}
                             onClick={() =>
                                 setWorkout((w) => {
