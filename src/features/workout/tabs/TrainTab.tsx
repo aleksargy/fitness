@@ -147,12 +147,10 @@ export function TrainTab({
 
     return (
         <>
-            <header className="mb-4">
-                <div className="flex items-end justify-between gap-4">
+            <header className="mb-4 flex items-start justify-between gap-4">            
                     <div>
-                        <h1 className="text-2xl font-semibold tracking-tight">Train</h1>
+                        <h1 className="text-3xl font-semibold tracking-tight">Train</h1>
                     </div>
-
                     <div className="text-right">
                         <div className="text-3xl font-semibold tabular-nums">
                             {formatTime(workout.elapsedMs)}
@@ -165,7 +163,6 @@ export function TrainTab({
                                     : "Paused"}
                         </div>
                     </div>
-                </div>
             </header>
 
             <Card className="p-4">

@@ -206,9 +206,8 @@ export function StatsTab() {
 
     return (
         <>
-            <header className="mb-4">
-                <h1 className="text-2xl font-semibold tracking-tight">Stats</h1>
-                <p className="text-white/55 text-sm">Progress, consistency, highlights</p>
+            <header className="mb-4 flex items-start justify-between gap-4">
+                <h1 className="text-3xl font-semibold tracking-tight">Stats</h1>
             </header>
 
             {/* Hero row */}

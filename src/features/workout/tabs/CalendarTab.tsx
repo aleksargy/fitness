@@ -96,9 +96,9 @@ export function CalendarTab() {
 
     return (
         <>
-            <header className="mb-4 flex items-end justify-between gap-4">
+            <header className="mb-4 flex items-start justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl font-semibold tracking-tight">Calendar</h1>
+                    <h1 className="text-3xl font-semibold tracking-tight">Calendar</h1>
                 </div>
             </header>
 
