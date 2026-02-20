@@ -94,13 +94,11 @@ export async function listCustomMovements() {
 export async function addCustomMovement(input: {
   name: string;
   category: CustomMovement["category"];
-  image?: string;
 }) {
   const m: CustomMovement = {
     id: `custom_${crypto.randomUUID?.() ?? uid()}`,
     name: input.name.trim(),
     category: input.category,
-    image: input.image?.trim() || undefined,
     createdAt: new Date().toISOString(),
   };
   await db.movements.put(m);
