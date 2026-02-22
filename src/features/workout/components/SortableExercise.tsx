@@ -26,16 +26,16 @@ export function SortableExercise({
 
   const dragHandle = (
     <button
-      className="mt-1 rounded-2xl border border-white/10 bg-white/5 px-2 py-2 text-white/70 hover:text-white hover:bg-white/10 active:scale-[0.99] transition"
+      className="rounded-xl border border-white/10 bg-white/5 px-2 py-2 text-white/70 hover:text-white hover:bg-white/10 active:scale-[0.99] transition"
       {...attributes}
       {...listeners}
       aria-label="Drag to reorder"
       title="Drag to reorder"
     >
       <div className="grid gap-1">
-        <span className="block h-1 w-4 rounded bg-white/40" />
-        <span className="block h-1 w-4 rounded bg-white/40" />
-        <span className="block h-1 w-4 rounded bg-white/40" />
+        <span className="block h-1 w-3.5 rounded bg-white/40" />
+        <span className="block h-1 w-3.5 rounded bg-white/40" />
+        <span className="block h-1 w-3.5 rounded bg-white/40" />
       </div>
     </button>
   );

@@ -283,7 +283,7 @@ export function ExercisePicker({
                         )}
                         style={{ transform: `translateY(${y}px)` }}
                     >
-                        <Card className="h-[calc(100vh-24px)] overflow-hidden">
+                        <Card className="h-[calc(100vh-24px)] overflow-hidden flex flex-col">
                             {/* drag handle / header area ONLY */}
                             <div className="px-4 pt-3 pb-3">
                                 {/* DRAG HANDLE ONLY */}
@@ -327,12 +327,11 @@ export function ExercisePicker({
 
 
                             {/* scrollable content */}
-                            <div className="h-[calc(100vh-24px-168px)] overflow-y-auto px-2 pb-2">
-                                {/* create custom */}
+                            <div className="flex-1 overflow-y-auto px-2 pb-[max(12px,env(safe-area-inset-bottom))]">                                {/* create custom */}
                                 <div className="px-2 pt-2 pb-3">
                                     {!creating ? (
                                         <button
-                                            className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/85 hover:bg-white/10 active:scale-[0.99] transition"
+                                            className="w-full rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.03] px-4 py-3 text-left hover:bg-white/10 active:scale-[0.99] transition"
                                             onClick={() => {
                                                 setCreating(true);
                                                 setNewName(q.trim());

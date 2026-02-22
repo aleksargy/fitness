@@ -21,17 +21,16 @@ import {
 import { SortableExercise } from "../components/SortableExercise";
 import { uid } from "../../../app/utils";
 import { getLastPerformance, saveSessionFromWorkout, saveTemplateFromWorkout } from "../../../app/dbHelpers";
+import { cn } from "../../../shared/utils/cn";
 
 export function TrainTab({
     workout,
     setWorkout,
-    onGoTemplates,
     onFinishedCleared,
     historyBump,
 }: {
     workout: WorkoutDraft;
     setWorkout: React.Dispatch<React.SetStateAction<WorkoutDraft>>;
-    onGoTemplates: () => void;
     onFinishedCleared: () => Promise<void>;
     historyBump: number;
 }) {
@@ -147,22 +146,22 @@ export function TrainTab({
 
     return (
         <>
-            <header className="mb-4 flex items-start justify-between gap-4">            
-                    <div>
-                        <h1 className="text-3xl font-semibold tracking-tight">Train</h1>
+            <header className="mb-4 flex items-start justify-between gap-4">
+                <div>
+                    <h1 className="text-3xl font-semibold tracking-tight">Train</h1>
+                </div>
+                <div className="text-right">
+                    <div className="text-3xl font-semibold tabular-nums">
+                        {formatTime(workout.elapsedMs)}
                     </div>
-                    <div className="text-right">
-                        <div className="text-3xl font-semibold tabular-nums">
-                            {formatTime(workout.elapsedMs)}
-                        </div>
-                        <div className="text-xs text-white/50">
-                            {workout.status === "idle"
-                                ? "Ready"
-                                : workout.status === "running"
-                                    ? "Tracking"
-                                    : "Paused"}
-                        </div>
+                    <div className="text-xs text-white/50">
+                        {workout.status === "idle"
+                            ? "Ready"
+                            : workout.status === "running"
+                                ? "Tracking"
+                                : "Paused"}
                     </div>
+                </div>
             </header>
 
             <Card className="p-4">
@@ -173,68 +172,69 @@ export function TrainTab({
                         onChange={(e) => setWorkout((w) => ({ ...w, title: e.target.value }))}
                     />
 
-                    <div className="grid grid-cols-2 gap-4">
-                        {/* Primary: matte light */}
-                        <button
-                            className={`rounded-2xl px-4 py-3 text-base font-semibold transition active:scale-[0.98] ${running
-                                ? "bg-[#F3F4F6] text-black hover:bg-white"
-                                : "bg-gradient-to-r from-emerald-300 to-sky-300"
-                                }`}
-                            onClick={() =>
-                                setWorkout((w) => {
-                                    const nextStatus = w.status === "running" ? "paused" : "running";
-                                    return {
-                                        ...w,
-                                        status: nextStatus,
-                                        startedAt: w.startedAt ?? (nextStatus === "running" ? Date.now() : null),
-                                    };
-                                })
-                            }
-                        >
-                            {running ? "Pause" : workout.status === "paused" ? "Resume" : "Start"}
-                        </button>
+                    <div className="mt-3 space-y-3">
+                        {/* Primary actions */}
+                        <div className="grid grid-cols-2 gap-3">
+                            <button
+                                className={cn(
+                                    "rounded-2xl px-4 py-4 text-base font-semibold transition active:scale-[0.98]",
+                                    running
+                                        ? "bg-white text-black"
+                                        : "bg-gradient-to-r from-emerald-300 to-sky-300 text-black shadow-lg shadow-emerald-300/15"
+                                )}
+                                onClick={() =>
+                                    setWorkout((w) => {
+                                        const nextStatus = w.status === "running" ? "paused" : "running";
+                                        return {
+                                            ...w,
+                                            status: nextStatus,
+                                            startedAt: w.startedAt ?? (nextStatus === "running" ? Date.now() : null),
+                                        };
+                                    })
+                                }
+                            >
+                                {running ? "Pause" : workout.status === "paused" ? "Resume" : "Start"}
+                            </button>
 
-                        <button
-                            className="rounded-2xl px-4 py-3 text-base font-medium border border-white/10 bg-white/5 text-white/85 hover:bg-white/10 active:scale-[0.98] transition"
-                            onClick={() =>
-                                setWorkout((w) => ({ ...w, elapsedMs: 0, status: "idle", startedAt: null }))
-                            }
-                        >
-                            Reset
-                        </button>
+                            <button
+                                className="rounded-2xl px-4 py-4 text-base font-semibold border border-white/10 bg-white/5 text-white hover:bg-white/10 active:scale-[0.98] transition disabled:opacity-40"
+                                onClick={finishWorkout}
+                                disabled={workout.exercises.length === 0}
+                                title={workout.exercises.length === 0 ? "Add exercises first" : "Finish workout"}
+                            >
+                                Finish
+                            </button>
+                        </div>
 
-                        <button
-                            className="rounded-2xl px-4 py-3 text-base font-medium border border-white/10 bg-white/5 text-white/85 hover:bg-white/10 active:scale-[0.98] transition"
-                            onClick={() => setPickerOpen(true)}
-                        >
-                            + Exercise
-                        </button>
+                        {/* Secondary actions */}
+                        <div className="grid grid-cols-2 gap-3">
+                            <button
+                                className="rounded-2xl px-4 py-3 text-sm font-semibold border border-white/10 bg-white/5 text-white/90 hover:bg-white/10 active:scale-[0.98] transition"
+                                onClick={() => setPickerOpen(true)}
+                            >
+                                + Exercise
+                            </button>
 
-                        <button
-                            className="rounded-2xl px-4 py-3 text-base font-medium border border-white/10 bg-white/5 text-white/85 hover:bg-white/10 active:scale-[0.98] transition"
-                            onClick={onGoTemplates}
-                        >
-                            Templates
-                        </button>
+                            <button
+                                className="rounded-2xl px-4 py-3 text-sm font-semibold border border-white/10 bg-white/5 text-white/80 hover:bg-white/10 active:scale-[0.98] transition"
+                                onClick={() => setWorkout((w) => ({ ...w, elapsedMs: 0, status: "idle", startedAt: null }))}
+                            >
+                                Reset
+                            </button>
+                        </div>
 
-                        <button
-                            className="col-span-2 rounded-2xl px-4 py-3 text-base font-medium border border-white/10 bg-white/5 text-white/85 hover:bg-white/10 active:scale-[0.98] transition disabled:opacity-40"
-                            onClick={saveAsTemplate}
-                            disabled={workout.exercises.length === 0}
-                            title={workout.exercises.length === 0 ? "Add exercises first" : "Save as template"}
-                        >
-                            Save as template
-                        </button>
+                        {/* Template actions (subtle) */}
+                        <div className="flex items-center justify-between gap-3">
 
-
-                        <button
-                            className="col-span-2 rounded-2xl px-4 py-3 text-base font-semibold border border-white/10 bg-white/5 text-white hover:bg-white/10 active:scale-[0.98] transition disabled:opacity-40"
-                            onClick={finishWorkout}
-                            disabled={workout.exercises.length === 0}
-                            title={workout.exercises.length === 0 ? "Add exercises first" : "Finish workout"}
-                        >
-                            Finish workout
-                        </button>
+                            <button
+                                className="text-sm text-white/70 hover:text-white transition disabled:opacity-40"
+                                onClick={saveAsTemplate}
+                                disabled={workout.exercises.length === 0}
+                                title={workout.exercises.length === 0 ? "Add exercises first" : "Save as template"}
+                            >
+                                Save as template
+                            </button>
+                        </div>
                     </div>
                 </div>
             </Card>

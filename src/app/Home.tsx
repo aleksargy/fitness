@@ -64,7 +64,6 @@ export function Home() {
           <TrainTab
             workout={activeWorkout}
             setWorkout={setActiveWorkout}
-            onGoTemplates={() => setTab("templates")}
             onFinishedCleared={finishAndClear}
             historyBump={historyBump}
           />
