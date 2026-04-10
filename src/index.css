@@ -1,1 +1,50 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  html {
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+  }
+  body {
+    background-color: #07080a;
+    color: #e2e6ed;
+    font-family: 'Barlow', sans-serif;
+    overscroll-behavior: none;
+  }
+  ::-webkit-scrollbar { display: none; }
+}
+
+@layer utilities {
+  .pt-safe { padding-top:    env(safe-area-inset-top);    }
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+}
+
+@layer components {
+  .btn-primary {
+    @apply font-display font-bold tracking-wider text-sm uppercase px-4 py-2 rounded-lg transition-all active:scale-95;
+    background: #f0f2f5;
+    color: #07080a;
+    min-height: 44px;
+  }
+  .btn-secondary {
+    @apply bg-surface border border-border font-display font-bold tracking-wider text-sm uppercase px-4 py-2 rounded-lg transition-all active:scale-95;
+    color: #636b7a;
+    min-height: 44px;
+  }
+  .input {
+    @apply w-full bg-surface border border-border rounded-lg px-3 py-2 text-sm placeholder-muted focus:outline-none transition-colors font-body;
+    color: #e2e6ed;
+    min-height: 44px;
+  }
+  .input:focus { border-color: #3a3f4d; }
+  .label {
+    @apply block text-xs font-mono uppercase tracking-wider mb-1;
+    color: #636b7a;
+  }
+  .card {
+    @apply bg-card border border-border rounded-xl p-4;
+  }
+}
